@@ -2,7 +2,7 @@
 ## <%= pluginNameLong %>
 # <%= pluginNameShort %>
 
-<%= description %>
+<%= pluginDescription %>
 
 
 ## Generated Using slush-nodebb-plugin and Slush

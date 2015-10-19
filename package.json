@@ -40,6 +40,13 @@
         "iniparser": "^1.0.5"
     },
     "keywords": [
-        "slushgenerator"
-    ]
+        "slushgenerator",
+        "nodebb",
+        "plugin",
+        "generator",
+        "gulp"
+    ],
+    "bin": {
+        "nodebb-plugin-generator": "index.js"
+    }
 }

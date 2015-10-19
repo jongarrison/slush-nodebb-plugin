@@ -16,6 +16,7 @@ var gulp = require('gulp'),
     _ = require('underscore.string'),
     inquirer = require('inquirer'),
     path = require('path'),
+    fs = require('fs'),
     util = require('util');
 
 function format(string) {
@@ -24,8 +25,12 @@ function format(string) {
 }
 
 var defaults = (function () {
-  var workingDirName = path.basename(process.cwd()),
+  var possiblePluginName = path.basename(process.cwd()),
       homeDir, osUserName, configFile, user, githubName;
+
+  if (possiblePluginName.lastIndexOf("nodebb-plugin-", 0) !== 0) {
+    possiblePluginName = '';
+  }
 
   if (process.platform === 'win32') {
     homeDir = process.env.USERPROFILE;
@@ -46,17 +51,14 @@ var defaults = (function () {
     githubName = (githubSettings) ? githubSettings.user : 'username';
   }
 
-  var startingDirPath = process.cwd();
-
   return {
-    appName: workingDirName,
+    'possiblePluginName': possiblePluginName,
     userName: format(user.name || ''),
     authorName: user.name || '',
     authorEmail: user.email || '',
     'githubName': githubName,
     hookListenerMethod: "handleHookMethod",
     widgetSlug: "mywidgetname",
-    'startingDirPath': startingDirPath
   };
 })();
 
@@ -65,10 +67,19 @@ function processYesNo(input) {
 }
 
 gulp.task('default', function (done) {
-  var prompts = [{
+  var prompts = [
+    {
+      name: 'hasDirectoryBeenCreated',
+      message: 'Has a directory already been created for the new plugin?',
+      type: 'list',
+      default: 'no',
+      choices: ['yes', 'no'],
+      filter: processYesNo
+    },
+    {
     name: 'pluginNameShort',
-    message: 'What is the plugin name aka id?',
-    default: defaults.appName
+    message: 'What is the plugin name aka id (this should start with "nodebb-plugin-...")?',
+    default: defaults.possiblePluginName
   }, {
     name: 'pluginNameLong',
     message: 'What is the more descriptive plugin name aka title?',
@@ -87,7 +98,7 @@ gulp.task('default', function (done) {
   }, {
     name: 'githubHttpsUrl',
     message: 'What is the github https url?',
-    default: "https://github.com/" + defaults.githubName + "/" + defaults.appName + ".git"
+    default: "https://github.com/" + defaults.githubName + "/{pluginNameShort}.git"
   }, {
     name: 'hasTemplatesFolder',
     type: 'list',
@@ -190,9 +201,28 @@ gulp.task('default', function (done) {
 
         //do some processing of the answers
         answers.widgetIdCapped = (!answers.widgetId) ? '' : answers.widgetId[0].toUpperCase() + answers.widgetId.slice(1);
-        answers.appNameSlug = _.slugify(answers.appName);
 
         //console.log("Answers results: " + util.inspect(answers));
+
+        //create directory if necessary and moving into it
+        if (!answers.hasDirectoryBeenCreated) {
+          var dirBase = answers.pluginNameShort;
+          var pluginDir = path.join(process.cwd(), dirBase);
+
+          try {
+            fs.mkdirSync(pluginDir);
+            console.log("Created plugin directory: " + pluginDir);
+          } catch (err) {
+            if (err.code == 'EEXIST') {
+              // ignore the error if the folder already exists
+            } else {
+              console.log("Unable to create plugin directory: " + pluginDir);
+              console.log("Error: " + util.inspect(err));
+              done();
+            }
+          }
+          process.chdir(pluginDir);
+        }
 
         var srcFiles = [];
         srcFiles.push(__dirname + '/templates/*.json');
@@ -219,7 +249,7 @@ gulp.task('default', function (done) {
           srcFiles.push(__dirname + '/templates/templates/plugin-templates/custom-page.tpl');
         }
 
-        console.log("starting dir: " + defaults.startingDirPath);
+        console.log("working in directory: " + process.cwd());
 
         gulp.src(srcFiles, {base: __dirname + '/templates'})
             .pipe(template(answers))
@@ -232,7 +262,6 @@ gulp.task('default', function (done) {
             .pipe(gulp.dest('./'))
             .pipe(install())
             .on('end', function () {
-              console.log("starting dir: " + defaults.startingDirPath);
               done();
             });
       });
