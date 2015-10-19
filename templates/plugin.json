@@ -1,0 +1,24 @@
+{
+  "id": "<%= pluginNameShort %>",
+  "name": "<%= pluginNameLong %>",
+  "description": "<%= pluginDescription %>",
+  "url": "<%= githubHttpsUrl %>",
+  "library": "./library.js",
+  "hooks": [
+    <% if (hasWidget) { %>
+    { "hook": "filter:widgets.getWidgets", "method": "defineWidgets"},
+    { "hook": "filter:widget.render:<%= widgetId %>", "method": "render<%= widgetIdCapped %>"},
+    <% } %><% if (hasHook) { %>
+    { "hook": "<%= hookName %>", "method": "<%= hookListenerMethod %>"},
+    <% } %>
+    { "hook": "static:app.load", "method": "staticAppLoad" }
+  ],
+  <% if (hasTemplatesFolder) { %>
+  "templates": "./templates",
+  <% } %><% if (hasCssFile) { %>
+  "less": ["static/plugin-style.less"],
+  <% } %><% if (hasJavascriptFile) { %>
+  "scripts": ["static/plugin-script.js"],
+  <% } %>
+  "staticDirs": { "static": "./static" }
+}

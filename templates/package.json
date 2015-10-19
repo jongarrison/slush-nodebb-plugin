@@ -1,0 +1,23 @@
+{
+  "name": "<%= pluginNameShort %>",
+  "version": "<%= pluginVersion %>",
+  "description": "<%= pluginDescription %>",
+  "main": "library.js",
+  "nbbpm": {
+    "compatibility": "^0.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+<%= githubHttpsUrl %>"
+  },
+  "keywords": [],
+  "author": "<%= pluginAuthor %>",
+  "license": "MIT",
+  "bugs": {
+    "url": "<%= githubHttpsUrl %>/issues"
+  },
+  "homepage": "<%= githubHttpsUrl %>#readme"
+}
