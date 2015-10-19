@@ -1,7 +1,7 @@
-# Slush nodebb-plugin
+# Overview 
 
-> A slush generator for making NodeBB Plugins
-
+This project helps users quickly generate new NodeBB plugins by asking a series of questions about the 
+functionality needed in the new plugin.  It uses the Slush and Gulp libraries to provide this functionality.
 
 ## Getting Started
 
@@ -11,7 +11,34 @@ Install `slush-nodebb-plugin` globally:
 $ npm install -g slush-nodebb-plugin
 ```
 
+> This global installation also installs the command: nodebb-plugin-generator (which can be used directly).  It
+> also installs the required slush and gulp dependencies, if you don't have them installed already.
+
 ### Usage
+
+The global installation registered the script 'nodebb-plugin-generator'.  Simply run that in the directory where you
+would like to have your new NodeBB plugin created.  
+
+```bash
+$ nodebb-plugin-generator
+```
+
+### Capabilities
+
+This NodeBB Plugin Generator prompts the user about the required plugin functionality and can currently help with:
+
+* Correctly create the package.json and plugin.json files with the appropriate default contents
+* Create the stub methods and files for a new widget
+* Create the stub methods and files for listening to a system hook
+* Create the stub methods and files for a custom admin page
+* Create the stub methods and files for a custom page
+* Register a stub javascript file that will be injected on all NodeBB pages
+* Register a stub style template (less/css) that will be injected on all NodeBB pages
+* Register a reference to a template folder for overriding system templates
+
+### Standard Slush Usage
+
+If you would prefer to call this as a standard slush script
 
 Create a new folder for your project:
 
@@ -28,8 +55,6 @@ $ cd nodebb-plugin-mynewplugin && slush nodebb-plugin
 ## Getting To Know Slush
 
 Slush is a tool that uses Gulp for project scaffolding.
-
-Slush does not contain anything "out of the box", except the ability to locate installed slush generators and to run them with liftoff.
 
 To find out more about Slush, check out the [documentation](https://github.com/slushjs/slush).
 

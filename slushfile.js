@@ -67,6 +67,7 @@ function processYesNo(input) {
 }
 
 gulp.task('default', function (done) {
+
   var prompts = [
     {
       name: 'hasDirectoryBeenCreated',
@@ -96,9 +97,15 @@ gulp.task('default', function (done) {
     message: 'What is the author name?',
     default: defaults.authorName
   }, {
+      name: 'githubName',
+      message: 'What is the Github username?',
+      default: defaults.githubName
+    }, {
     name: 'githubHttpsUrl',
-    message: 'What is the github https url?',
-    default: "https://github.com/" + defaults.githubName + "/{pluginNameShort}.git"
+    message: 'What is the github https url for this new plugin?',
+    default: function(answers) {
+      return "https://github.com/" + answers.githubName + "/" + answers.pluginNameShort + ".git";
+    }
   }, {
     name: 'hasTemplatesFolder',
     type: 'list',
