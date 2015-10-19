@@ -3,6 +3,7 @@
     "description": "A slush generator for making NodeBB Plugins",
     "version": "0.1.0",
     "homepage": "https://github.com/jongarrison/slush-nodebb-plugin",
+    "preferGlobal" : true,
     "author": {
         "name": "Jon Garrison",
         "linkedin": "https://www.linkedin.com/in/jonathangarrison",
