@@ -1,14 +1,14 @@
-# Slush Slush-nodebb-plugin [![Build Status](https://secure.travis-ci.org/jongarrison/slush-slush-nodebb-plugin.png?branch=master)](https://travis-ci.org/jongarrison/slush-slush-nodebb-plugin) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-slush-nodebb-plugin.png)](http://badges.enytc.com/for/npm/slush-slush-nodebb-plugin)
+# Slush nodebb-plugin
 
 > A slush generator for making NodeBB Plugins
 
 
 ## Getting Started
 
-Install `slush-slush-nodebb-plugin` globally:
+Install `slush-nodebb-plugin` globally:
 
 ```bash
-$ npm install -g slush-slush-nodebb-plugin
+$ npm install -g slush-nodebb-plugin
 ```
 
 ### Usage
@@ -16,13 +16,13 @@ $ npm install -g slush-slush-nodebb-plugin
 Create a new folder for your project:
 
 ```bash
-$ mkdir my-slush-slush-nodebb-plugin
+$ mkdir nodebb-plugin-mynewplugin
 ```
 
 Run the generator from within the new folder:
 
 ```bash
-$ cd my-slush-slush-nodebb-plugin && slush slush-nodebb-plugin
+$ cd nodebb-plugin-mynewplugin && slush nodebb-plugin
 ```
 
 ## Getting To Know Slush
@@ -35,10 +35,10 @@ To find out more about Slush, check out the [documentation](https://github.com/s
 
 ## Contributing
 
-See the [CONTRIBUTING Guidelines](https://github.com/jongarrison/slush-slush-nodebb-plugin/blob/master/CONTRIBUTING.md)
+Feel free to contribute code via the Github pull request process
 
 ## Support
-If you have any problem or suggestion please open an issue [here](https://github.com/jongarrison/slush-slush-nodebb-plugin/issues).
+If you have any problem or suggestion please open an issue [here](https://github.com/jongarrison/slush-nodebb-plugin/issues).
 
 ## License 
 

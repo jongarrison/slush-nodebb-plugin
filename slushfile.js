@@ -240,7 +240,7 @@ gulp.task('default', function (done) {
 
 
 /*
-Sample json from the prompts:
+Sample json result from the prompts:
 
   {
    pluginNameShort: 'nodebb-plugin-zipper',
