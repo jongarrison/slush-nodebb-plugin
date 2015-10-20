@@ -1,6 +1,6 @@
 /*
- * slush-nodebb-plugin
- * https://github.com/jongarrison/slush-nodebb-plugin
+ * slush-slush-nodebb-plugin
+ * https://github.com/jongarrison/slush-slush-nodebb-plugin
  *
  * Copyright (c) 2015, Jon Garrison
  * Licensed under the MIT license.
@@ -57,13 +57,13 @@ var defaults = (function () {
     authorName: user.name || '',
     authorEmail: user.email || '',
     'githubName': githubName,
-    hookListenerMethod: "handleHookMethod",
-    widgetSlug: "mywidgetname",
+    hookListenerMethod: 'handleHookMethod',
+    widgetSlug: 'mywidgetname',
   };
 })();
 
 function processYesNo(input) {
-    return (input == "yes");
+    return (input == 'yes');
 }
 
 gulp.task('default', function (done) {
@@ -79,8 +79,11 @@ gulp.task('default', function (done) {
     },
     {
     name: 'pluginNameShort',
-    message: 'What is the plugin name aka id (this should start with "nodebb-plugin-...")?',
-    default: defaults.possiblePluginName
+    message: 'What is the plugin name, aka id (you can exclude the required prefix: "nodebb-plugin-...")?',
+    default: defaults.possiblePluginName,
+    filter: function(input) {
+      return 'nodebb-plugin-' + input.replace('nodebb-plugin-', '');
+    }
   }, {
     name: 'pluginNameLong',
     message: 'What is the more descriptive plugin name aka title?',
@@ -150,7 +153,7 @@ gulp.task('default', function (done) {
   }, {
     name: 'hasHook',
     type: 'list',
-    message: 'Would you like to listen to a specific hook?',
+    message: 'Would you like listen to a specific hook?',
     choices: ['yes', 'no'],
     filter: processYesNo
   }, {
