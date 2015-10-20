@@ -1,6 +1,6 @@
 /*
- * slush-slush-nodebb-plugin
- * https://github.com/jongarrison/slush-slush-nodebb-plugin
+ * slush-nodebb-plugin
+ * https://github.com/jongarrison/slush-nodebb-plugin
  *
  * Copyright (c) 2015, Jon Garrison
  * Licensed under the MIT license.
