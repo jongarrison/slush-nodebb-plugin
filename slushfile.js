@@ -104,7 +104,7 @@ gulp.task('default', function (done) {
     name: 'githubHttpsUrl',
     message: 'What is the github https url for this new plugin?',
     default: function(answers) {
-      return "https://github.com/" + answers.githubName + "/" + 'nodebb-plugin-' + answers.pluginNameShort + ".git";
+      return "https://github.com/" + answers.githubName + '/nodebb-plugin-' + answers.pluginNameShort + ".git";
     }
   }, {
     name: 'hasTemplatesFolder',
