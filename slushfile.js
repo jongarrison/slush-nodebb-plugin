@@ -1,6 +1,6 @@
 /*
- * slush-slush-nodebb-plugin
- * https://github.com/jongarrison/slush-slush-nodebb-plugin
+ * slush-nodebb-plugin
+ * https://github.com/jongarrison/slush-nodebb-plugin
  *
  * Copyright (c) 2015, Jon Garrison
  * Licensed under the MIT license.
@@ -153,7 +153,7 @@ gulp.task('default', function (done) {
   }, {
     name: 'hasHook',
     type: 'list',
-    message: 'Would you like listen to a specific hook?',
+    message: 'Would you like to listen to a specific hook?',
     choices: ['yes', 'no'],
     filter: processYesNo
   }, {
