@@ -79,7 +79,7 @@ gulp.task('default', function (done) {
     },
     {
     name: 'pluginNameShort',
-    message: 'What is the plugin name aka id (this should start with "nodebb-plugin-...")?',
+    message: 'What is the plugin name aka id (without "nodebb-plugin-")?',
     default: defaults.possiblePluginName
   }, {
     name: 'pluginNameLong',
@@ -104,7 +104,7 @@ gulp.task('default', function (done) {
     name: 'githubHttpsUrl',
     message: 'What is the github https url for this new plugin?',
     default: function(answers) {
-      return "https://github.com/" + answers.githubName + "/" + answers.pluginNameShort + ".git";
+      return "https://github.com/" + answers.githubName + "/" + 'nodebb-plugin-' + answers.pluginNameShort + ".git";
     }
   }, {
     name: 'hasTemplatesFolder',
@@ -213,7 +213,7 @@ gulp.task('default', function (done) {
 
         //create directory if necessary and moving into it
         if (!answers.hasDirectoryBeenCreated) {
-          var dirBase = answers.pluginNameShort;
+          var dirBase = 'nodebb-plugin-' + answers.pluginNameShort;
           var pluginDir = path.join(process.cwd(), dirBase);
 
           try {
