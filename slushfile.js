@@ -209,7 +209,7 @@ gulp.task('default', function (done) {
         //do some processing of the answers
         answers.widgetIdCapped = (!answers.widgetId) ? '' : answers.widgetId[0].toUpperCase() + answers.widgetId.slice(1);
 
-        //console.log("Answers results: " + util.inspect(answers));
+        console.log("Answers results: " + util.inspect(answers));
 
         //create directory if necessary and moving into it
         if (!answers.hasDirectoryBeenCreated) {
@@ -238,7 +238,7 @@ gulp.task('default', function (done) {
         srcFiles.push(__dirname + '/templates/.gitignore');
 
         if (answers.hasTemplatesFolder) {
-          srcFiles.push(__dirname + '/templates/templates/**');
+          srcFiles.push(__dirname + '/templates/templates');
         }
         if (answers.hasJavascriptFile) {
           srcFiles.push(__dirname + '/templates/static/plugin-script.js');

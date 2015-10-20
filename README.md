@@ -25,7 +25,7 @@ $ nodebb-plugin-generator
 
 ### Capabilities
 
-This NodeBB Plugin Generator prompts the user about the required plugin functionality and can currently help with:
+This NodeBB Plugin Generator prompts the user about the required plugin functionality and can currently help to:
 
 * Correctly create the package.json and plugin.json files with the appropriate default contents
 * Create the stub methods and files for a new widget
