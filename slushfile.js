@@ -150,7 +150,7 @@ gulp.task('default', function (done) {
   }, {
     name: 'hasHook',
     type: 'list',
-    message: 'Would you like listen to a specific hook?',
+    message: 'Would you like to listen to a specific hook?',
     choices: ['yes', 'no'],
     filter: processYesNo
   }, {
