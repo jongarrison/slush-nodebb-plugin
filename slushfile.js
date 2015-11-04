@@ -28,10 +28,6 @@ var defaults = (function () {
   var possiblePluginName = path.basename(process.cwd()),
       homeDir, osUserName, configFile, user, githubName;
 
-  if (possiblePluginName.lastIndexOf("nodebb-plugin-", 0) !== 0) {
-    possiblePluginName = '';
-  }
-
   if (process.platform === 'win32') {
     homeDir = process.env.USERPROFILE;
     osUserName = process.env.USERNAME || path.basename(homeDir).toLowerCase();
@@ -67,6 +63,7 @@ function processYesNo(input) {
 }
 
 gulp.task('default', function (done) {
+  console.log("starting...");
 
   var prompts = [
     {
@@ -80,9 +77,19 @@ gulp.task('default', function (done) {
     {
     name: 'pluginNameShort',
     message: 'What is the plugin name, aka id (you can exclude the required prefix: "nodebb-plugin-...")?',
-    default: defaults.possiblePluginName,
-    filter: function(input) {
-      return 'nodebb-plugin-' + input.replace('nodebb-plugin-', '');
+    default: function(answers) {
+      if (answers.hasDirectoryBeenCreated) {
+        return defaults.possiblePluginName;
+      } else {
+        return 'nodebb-plugin-magicness';
+      }
+    },
+    filter : function(input) {
+      if (input.lastIndexOf("nodebb-", 0) === 0) {
+        return input;
+      } else {
+        return 'nodebb-plugin-' + input.replace('nodebb-plugin-', '');
+      }
     }
   }, {
     name: 'pluginNameLong',
