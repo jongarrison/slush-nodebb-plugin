@@ -257,7 +257,7 @@ gulp.task('default', function (done) {
           srcFiles.push(__dirname + '/templates/static/plugin-style.less');
         }
         if (answers.hasWidget) {
-          srcFiles.push(__dirname + '/templates/widgets/**');
+          srcFiles.push(__dirname + '/templates/templates/widgets/**');
         }
         if (answers.hasAdminPageRoute) {
           srcFiles.push(__dirname + '/templates/templates/plugin-templates/custom-admin-page.tpl');
