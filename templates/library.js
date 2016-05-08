@@ -6,12 +6,17 @@
 (function() {
   'use strict';
 
-  var winston = module.parent.require('winston'),
-      plugins = module.parent.require('./plugins'),
-      fs = require('fs'),
-      path = require('path'),
-      util = require('util'),
-      app;
+  var winston = module.parent.require('winston');
+  var plugins = module.parent.require('./plugins');
+  var fs = require('fs');
+  var path = require('path');
+  var util = require('util');
+  var app;
+
+  /*
+   files in static/ will be accessible via a path like:
+   http://yournodebbinstall.com/plugins/<%= pluginNameShort %>/static/file.html
+   */
 
   var Plugin = {
     staticAppLoad: function(params, callback) {
@@ -22,14 +27,18 @@
 
       <% if (hasAdminPageRoute) { %>
       var renderCustomAdminPage = function (req, res) {
-        res.render('plugin-templates/custom-admin-page.tpl', {someInjectedData: "<%= pluginNameLong %>"});
+        res.render('<%= adminPageRouteName %>.tpl', {someInjectedData: "<%= pluginNameLong %>"});
       }
-      router.get('<%= adminPageRouteName %>', params.middleware.admin.buildHeader, renderCustomAdminPage);
+      //Why two routes? See: https://github.com/NodeBB/nodebb-plugin-quickstart/blob/master/library.js
+      router.get('/admin/<%= adminPageRouteName %>', params.middleware.admin.buildHeader, renderCustomAdminPage);
+      router.get('/api/admin/<%= adminPageRouteName %>', renderCustomAdminPage);
       <% } %><% if (hasPageRoute) { %>
       var renderCustomPage = function (req, res) {
-        res.render('plugin-templates/custom-page.tpl', {someInjectedData: "<%= pluginNameLong %>"});
+        res.render('<%= pageRouteName %>.tpl', {someInjectedData: "<%= pluginNameLong %>"});
       }
-      router.get('<%= pageRouteName %>', params.middleware.buildHeader, renderCustomPage);
+      //Why two routes? See: https://github.com/NodeBB/nodebb-plugin-quickstart/blob/master/library.js
+      router.get('/<%= pageRouteName %>', params.middleware.buildHeader, renderCustomPage);
+      router.get('/api/<%= pageRouteName %>', renderCustomPage);
       <% } %>
       if (typeof callback === 'function') {
         callback();

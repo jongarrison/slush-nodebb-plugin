@@ -185,8 +185,8 @@ gulp.task('default', function (done) {
     filter: processYesNo
   }, {
     name: 'adminPageRouteName',
-    message: 'Name of the custom admin page route?',
-    default: '/admin/customadminroute',
+    message: 'Name of the custom admin page route (no slash)?',
+    default: 'customadminroute',
     when: function (data) {
       return data.hasAdminPageRoute;
     }
@@ -198,8 +198,8 @@ gulp.task('default', function (done) {
     filter: processYesNo
   }, {
     name: 'pageRouteName',
-    message: 'Name of the page route?',
-    default: '/custompageroute',
+    message: 'Name of the page route (no slash)?',
+    default: 'custompageroute',
     when: function (data) {
       return data.hasPageRoute;
     }
@@ -246,6 +246,7 @@ gulp.task('default', function (done) {
         srcFiles.push(__dirname + '/templates/*.js');
         srcFiles.push(__dirname + '/templates/*.md');
         srcFiles.push(__dirname + '/templates/.gitignore');
+        srcFiles.push(__dirname + '/templates/static');
 
         if (answers.hasTemplatesFolder) {
           srcFiles.push(__dirname + '/templates/templates');
@@ -260,10 +261,12 @@ gulp.task('default', function (done) {
           srcFiles.push(__dirname + '/templates/templates/widgets/**');
         }
         if (answers.hasAdminPageRoute) {
-          srcFiles.push(__dirname + '/templates/templates/plugin-templates/custom-admin-page.tpl');
+          //TODO: Needs to be correctly renamed to match the route name
+          srcFiles.push(__dirname + '/templates/templates/admin/custom-admin-page.tpl');
         }
         if (answers.hasPageRoute) {
-          srcFiles.push(__dirname + '/templates/templates/plugin-templates/custom-page.tpl');
+          //TODO: Needs to be correctly renamed to match the route name
+          srcFiles.push(__dirname + '/templates/templates/custom-page.tpl');
         }
 
         console.log("working in directory: " + process.cwd());
@@ -271,14 +274,22 @@ gulp.task('default', function (done) {
         gulp.src(srcFiles, {base: __dirname + '/templates'})
             .pipe(template(answers))
             .pipe(rename(function (file) {
+              console.log('Evaluating file basename: ' + file.basename);
               if (file.basename[0] === '_') {
                 file.basename = '.' + file.basename.slice(1);
+              } else if (file.basename === 'custom-admin-page') {
+                console.log('Renaming custom-admin-page to route name: ' + answers.adminPageRouteName);
+                file.basename = answers.adminPageRouteName;
+              } else if (file.basename === 'custom-page') {
+                console.log('Evaluating file basename: ' + answers.pageRouteName);
+                file.basename = answers.pageRouteName;
               }
             }))
             .pipe(conflict('./'))
             .pipe(gulp.dest('./'))
             .pipe(install())
             .on('end', function () {
+              console.log("Finished processing plugin files");
               done();
             });
       });

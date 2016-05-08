@@ -1,7 +1,7 @@
 {
     "name": "slush-nodebb-plugin",
     "description": "A slush generator for making NodeBB Plugins",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "homepage": "https://github.com/jongarrison/slush-nodebb-plugin",
     "preferGlobal" : true,
     "author": {
