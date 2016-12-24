@@ -27,14 +27,14 @@
 
       <% if (hasAdminPageRoute) { %>
       var renderCustomAdminPage = function (req, res) {
-        res.render('<%= adminPageRouteName %>.tpl', {someInjectedData: "<%= pluginNameLong %>"});
+        res.render('<%= adminPageRouteName %>', {someInjectedData: "<%= pluginNameLong %>"});
       }
       //Why two routes? See: https://github.com/NodeBB/nodebb-plugin-quickstart/blob/master/library.js
       router.get('/admin/<%= adminPageRouteName %>', params.middleware.admin.buildHeader, renderCustomAdminPage);
       router.get('/api/admin/<%= adminPageRouteName %>', renderCustomAdminPage);
       <% } %><% if (hasPageRoute) { %>
       var renderCustomPage = function (req, res) {
-        res.render('<%= pageRouteName %>.tpl', {someInjectedData: "<%= pluginNameLong %>"});
+        res.render('<%= pageRouteName %>', {someInjectedData: "<%= pluginNameLong %>"});
       }
       //Why two routes? See: https://github.com/NodeBB/nodebb-plugin-quickstart/blob/master/library.js
       router.get('/<%= pageRouteName %>', params.middleware.buildHeader, renderCustomPage);
